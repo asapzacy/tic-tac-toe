@@ -9,20 +9,16 @@ class AppContainer extends Component {
   constructor() {
     super()
     this.state = {
-      board: [
-        [0,0,0],
-        [0,0,0],
-        [0,0,0]
-      ]
+      board: []
     }
     this.createNewGame = this.createNewGame.bind(this)
   }
   componentDidMount() {
-    const copy = this.state.board
-    copy[0].map(el => console.log(el))
+    this.createNewGame()
   }
   createNewGame() {
-    console.log('created')
+    const blankBoard = [...Array(3).keys()].map(el => (new Array(3).fill(null)))
+    this.setState({ board: blankBoard })
   }
   render() {
     return (

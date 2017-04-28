@@ -1,11 +1,11 @@
 import React from 'react'
-import Square from './Square'
+import SquareContainer from '../containers/SquareContainer' 
 
 const Board = ({ board }) => (
   <section className='boardContainer'>
     <table className='board'>
       <tbody>
-        { board.map((row, i) => <tr key={i}>{ row.map((el, i) => <Square key={i} />) }</tr>) }
+        { board.map((row, i) => <tr key={i}>{ row.map((el, i) => <SquareContainer key={i} />) }</tr>) }
       </tbody>
     </table>
   </section>
