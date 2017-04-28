@@ -5,8 +5,9 @@ html, body { height:100%;box-sizing:border-box }
 img { max-width:100% }
 a { color:inherit;text-decoration:none }
 ul, menu { list-style-type:none }
-input { border:0;background:inherit;font:inherit }
+input { outline:0;border:0;background:inherit;font:inherit }
 input:focus { outline:0 }
+button { outline:0;border:0;background:inherit;cursor:pointer }
 h1,h2,h3,h4,h5,h6 { font-weight:inherit }
 strong { font-weight:700 }
 figure { text-align:center }

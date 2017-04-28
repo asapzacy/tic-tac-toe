@@ -1,8 +1,9 @@
 import React from 'react'
 
 const Header = () => (
-  <header>
-    <h1>{'Care Revolutions | loading screen | tic-tac-toe'}</h1>
+  <header className='headerContainer'>
+    <h1>{'Care Revolutions'}</h1>
+    <h2>{'loading screen | tic-tac-toe'}</h2>
   </header>
 )
 

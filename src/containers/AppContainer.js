@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import App from '../components/App'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import Board from '../components/Board'
+import Info from '../components/Info'
+import '../styles/main.css'
 
 class AppContainer extends Component {
   constructor() {
@@ -7,12 +11,25 @@ class AppContainer extends Component {
     this.state = {
 
     }
+    this.createNewGame = this.createNewGame.bind(this)
   }
   componentDidMount() {
 
   }
+  createNewGame() {
+    console.log('created')
+  }
   render() {
-    return <App />
+    return (
+      <div className='appContainer'>
+        <Header />
+        <main className='mainContainer'>
+          <Info player={'one'} />
+          <Board />
+        </main>
+        <Footer createNewGame={this.createNewGame} />
+      </div>
+    )
   }
 }
 

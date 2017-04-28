@@ -1,0 +1,35 @@
+
+.appContainer {
+  height:100%;
+  width:100%;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  justify-content:space-around;
+}
+
+.headerContainer {
+  font-size:1.4em;
+  font-family:monospace;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+}
+
+.mainContainer {
+  width:100%;
+  display:flex;
+  flex-basis:50%;
+  align-items:center;
+  justify-content:space-around;
+  flex-direction:column;
+}
+
+.boardContainer {
+  height:66%;
+  width:66%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border:2px solid #070707;
+}
