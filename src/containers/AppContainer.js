@@ -14,19 +14,41 @@ class AppContainer extends Component {
       player: '',
       isGameOver: false,
       winner: '',
-      isGameDraw: false
+      isGameDraw: false,
+      gameWinners: []
     }
     this.createNewGame = this.createNewGame.bind(this)
     this.clickSquare = this.clickSquare.bind(this)
   }
   componentDidMount() {
-    this.createNewGame(3)
+    this.createNewGame(4)
   }
   createNewGame(size) {
     const blankBoard = [...Array(size).keys()].map(i => (Array(size).fill(null)))
     this.setState({
       board: blankBoard,
       player: 'X'
+    }, () => this.findGameWinners())
+  }
+  findGameWinners() {
+    const board = this.state.board
+    const gameWinningSolutions = []
+    const leftDiagonal = []
+    const rightDiagonal = []
+    for (let i = 0; i < board.length; i++) {
+      const row = []
+      const column = []
+      leftDiagonal.push([i, i])
+      rightDiagonal.push([i, board.length - 1 - i])
+      for (let j = 0; j < board[i].length; j++) {
+        row.push([i, j])
+        column.push([j, i])
+      }
+      gameWinningSolutions.push(row, column)
+    }
+    gameWinningSolutions.push(leftDiagonal, rightDiagonal)
+    this.setState({
+      gameWinners: gameWinningSolutions
     })
   }
   clickSquare(i, j) {
