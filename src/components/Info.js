@@ -1,8 +1,13 @@
 import React from 'react'
 
-const Info = ({ isPlayerX }) => (
+const Info = ({ player, isGameOver, winner, isGameDraw }) => (
   <section className='infoContainer'>
-    <p>{`Player ${isPlayerX ? 'X' : 'O'}'s turn`}</p>
+    { isGameOver
+      ? <p>{`Player ${winner} won!`}</p>
+      : isGameDraw
+        ? <p>{'It\'s a draw!'}</p>
+        : <p>{`Player ${player}'s turn`}</p>
+    }
   </section>
 )
 

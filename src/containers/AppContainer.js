@@ -11,17 +11,23 @@ class AppContainer extends Component {
     this.state = {
       board: [],
       isPlayerX: true,
-      isGameOver: false
+      player: '',
+      isGameOver: false,
+      winner: '',
+      isGameDraw: false
     }
     this.createNewGame = this.createNewGame.bind(this)
     this.clickSquare = this.clickSquare.bind(this)
   }
   componentDidMount() {
-    this.createNewGame(4)
+    this.createNewGame(3)
   }
   createNewGame(size) {
     const blankBoard = [...Array(size).keys()].map(i => (Array(size).fill(null)))
-    this.setState({ board: blankBoard })
+    this.setState({
+      board: blankBoard,
+      player: 'X'
+    })
   }
   clickSquare(i, j) {
     if (!this.state.board[i][j]) {
@@ -29,9 +35,49 @@ class AppContainer extends Component {
       updatedBoard[i][j] = this.state.isPlayerX ? 'X' : 'O'
       this.setState({
         board: updatedBoard,
-        isPlayerX: !this.state.isPlayerX
+        isPlayerX: !this.state.isPlayerX,
+        player: this.state.player === 'X' ? 'O' : 'X'
       })
     }
+    this.checkIfDraw()
+    this.checkIfWinner()
+  }
+  checkIfDraw() {
+    const board = this.state.board
+    const isDraw = board.every(row => row.every(el => el))
+    this.setState({ isGameDraw: isDraw })
+  }
+  checkIfWinner() {
+    const arr = this.state.board
+    let hasWon = false
+    let winner
+    for (let i = 0; i < arr.length; i++) {
+      let row = arr[i]
+      const X = row.every(el => el === 'X')
+      const O = row.every(el => el === 'O')
+      console.log(X, O)
+      if (X || O) {
+        hasWon = true
+        winner = X ? 'X' : 'O'
+      }
+      if (!hasWon) {
+        let bottom = true
+        const check = arr[i][i]
+        for (let j = 0; j < arr[i].length; j++) {
+          const check = arr[i][j]
+
+          if (i === j && arr[i] !== arr[j]) {
+            console.log(i, j)
+            break
+          }
+        }
+      }
+    }
+
+    this.setState({
+      isGameOver: hasWon,
+      winner
+    })
   }
   render() {
     return (
