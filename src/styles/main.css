@@ -42,8 +42,10 @@
 }
 
 .square {
+  cursor:pointer;
   border:1px solid #070707;
 }
+
 .value {
   display:block;
   min-height:1em;

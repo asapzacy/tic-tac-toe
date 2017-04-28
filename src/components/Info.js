@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Info = ({ player }) => (
+const Info = ({ isPlayerX }) => (
   <section className='infoContainer'>
-    <p>{`Player ${player}'s turn`}</p>
+    <p>{`Player ${isPlayerX ? 'X' : 'O'}'s turn`}</p>
   </section>
 )
 

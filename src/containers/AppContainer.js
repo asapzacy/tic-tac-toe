@@ -9,24 +9,37 @@ class AppContainer extends Component {
   constructor() {
     super()
     this.state = {
-      board: []
+      board: [],
+      isPlayerX: true,
+      isGameOver: false
     }
     this.createNewGame = this.createNewGame.bind(this)
+    this.clickSquare = this.clickSquare.bind(this)
   }
   componentDidMount() {
-    this.createNewGame()
+    this.createNewGame(4)
   }
-  createNewGame() {
-    const blankBoard = [...Array(3).keys()].map(el => (new Array(3).fill(null)))
+  createNewGame(size) {
+    const blankBoard = [...Array(size).keys()].map(i => (Array(size).fill(null)))
     this.setState({ board: blankBoard })
+  }
+  clickSquare(i, j) {
+    if (!this.state.board[i][j]) {
+      const updatedBoard = [...this.state.board]
+      updatedBoard[i][j] = this.state.isPlayerX ? 'X' : 'O'
+      this.setState({
+        board: updatedBoard,
+        isPlayerX: !this.state.isPlayerX
+      })
+    }
   }
   render() {
     return (
       <div className='appContainer'>
         <Header />
         <main className='mainContainer'>
-          <Info player={'one'} />
-          <Board {...this.state} />
+          <Info {...this.state} />
+          <Board clickSquare={this.clickSquare} {...this.state} />
         </main>
         <Footer createNewGame={this.createNewGame} />
       </div>

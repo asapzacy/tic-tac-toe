@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Square = ({ clickSquare, value }) => (
-  <td className='square' onClick={clickSquare}>
+const Square = ({ value, row, col, clickSquare }) => (
+  <td className='square' onClick={() => clickSquare(row, col)}>
     <span className='value'>{value}</span>
   </td>
 )
