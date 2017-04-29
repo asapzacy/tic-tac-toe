@@ -21,9 +21,9 @@ class AppContainer extends Component {
     this.clickSquare = this.clickSquare.bind(this)
   }
   componentDidMount() {
-    this.createNewGame(4)
+    this.createNewGame()
   }
-  createNewGame(size) {
+  createNewGame(size = 3) {
     const blankBoard = [...Array(size).keys()].map(i => (Array(size).fill(null)))
     this.setState({
       board: blankBoard,
@@ -35,6 +35,7 @@ class AppContainer extends Component {
     const gameWinningSolutions = []
     const leftDiagonal = []
     const rightDiagonal = []
+
     for (let i = 0; i < board.length; i++) {
       const row = []
       const column = []
@@ -52,7 +53,7 @@ class AppContainer extends Component {
     })
   }
   clickSquare(i, j) {
-    if (!this.state.board[i][j]) {
+    if (!this.state.board[i][j] && !this.state.isGameOver) {
       const updatedBoard = [...this.state.board]
       updatedBoard[i][j] = this.state.isPlayerX ? 'X' : 'O'
       this.setState({
@@ -62,44 +63,41 @@ class AppContainer extends Component {
       })
     }
     this.checkIfDraw()
-    this.checkIfWinner()
+    this.checkIfWinner(this.state.player)
   }
   checkIfDraw() {
     const board = this.state.board
     const isDraw = board.every(row => row.every(el => el))
     this.setState({ isGameDraw: isDraw })
   }
-  checkIfWinner() {
-    const arr = this.state.board
-    let hasWon = false
-    let winner
-    for (let i = 0; i < arr.length; i++) {
-      let row = arr[i]
-      const X = row.every(el => el === 'X')
-      const O = row.every(el => el === 'O')
-      console.log(X, O)
-      if (X || O) {
-        hasWon = true
-        winner = X ? 'X' : 'O'
-      }
-      if (!hasWon) {
-        let bottom = true
-        const check = arr[i][i]
-        for (let j = 0; j < arr[i].length; j++) {
-          const check = arr[i][j]
-
-          if (i === j && arr[i] !== arr[j]) {
-            console.log(i, j)
-            break
+  checkIfWinner(ch) {
+    const board = this.state.board
+    const gameWinners = this.state.gameWinners
+    for (let i = 0; i < gameWinners.length; i++) {
+      let hasWon = false
+      let keepGoing = true
+      for (let j = 0; j < gameWinners[i].length; j++) {
+        if (keepGoing) {
+          const [ row, col ] = gameWinners[i][j]
+          const square = board[row][col]
+          if (square !== ch) {
+            keepGoing = false
           }
         }
       }
+      if (keepGoing) {
+        console.log(keepGoing)
+        this.setState({
+          isGameOver: true,
+          winner: ch
+        })
+      }
     }
 
-    this.setState({
-      isGameOver: hasWon,
-      winner
-    })
+    const prime = (arr) => arr.map((row, i) => row[i])
+    const alternate = (arr) => arr.map((row, i) => row[row.length - 1 - i])
+    // console.log(prime(this.state.board))
+    // console.log(alternate(this.state.board))
   }
   render() {
     return (
